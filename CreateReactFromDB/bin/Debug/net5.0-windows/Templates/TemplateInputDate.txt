@@ -1,0 +1,6 @@
+﻿<div class="form-group row">
+    <label for="input{Column_Name}" class="col-sm-2 col-form-label">{Readable_Caption}</label>
+    <div class="col-sm-10">
+        <input type="{html_type}" class="form-control" id="input{Column_Name}" />
+    </div>
+</div>

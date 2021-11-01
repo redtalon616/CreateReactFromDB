@@ -1,0 +1,63 @@
+﻿import React, { Component } from 'react';
+import authService from './api-authorization/AuthorizeService'
+
+export class {table}List extends Component {
+    static displayName = {table}List.name;
+
+    constructor(props) {
+        super(props);
+        this.state = { list: [], loading: true };
+    }
+
+    componentDidMount() {
+        this.populate{table}Data();
+    }
+
+    render() {
+        let contents = this.state.loading
+            ? <p><em>Loading...</em></p>
+            : {table}List.render{table}(this.state.list);
+
+        return (
+            <div>
+<h1>List of {table}</h1>
+{contents}
+            </div>
+        );
+    }
+    
+    static render{table}(list) {
+        if (list.length == 0) {
+            return "No {table} found."
+        }
+        else {
+            return (
+                <div class="table-responsive"> 
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                {RowHeader}
+                            </tr>
+                        </thead>
+                        
+                        <tbody> {
+                            list.map(function (itm) { return <tr>{RowMain}</tr>; })
+                        } </tbody> 
+                                       
+                    </table>
+                </div>
+            );
+        }
+    }
+
+    async populate{table}Data() {
+        const token = await authService.getAccessToken();
+        const response = await fetch('{table}data', {
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
+        });
+        const data = await response.json();
+        this.setState({ list: data, loading: false });
+    }
+}
+
+
